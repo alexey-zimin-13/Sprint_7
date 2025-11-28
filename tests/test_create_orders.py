@@ -14,8 +14,8 @@ class TestOrderCreation:
             ([])
         ]
     )
-    def test_http_status_for_color_options(self, methods_create_order, color):
-        payload = methods_create_order.generate_order_data(color=color)
+    def test_http_status_for_color_options(self, methods_create_order, methods_generation_orders, color):
+        payload = methods_generation_orders.generate_order_data(color=color)
         response = methods_create_order.create_order(payload)
         json_data = response.json()
 
