@@ -55,5 +55,17 @@ def create_courier_data(methods_generation_couriers, methods_create_courier, met
         id = methods_login_courier.get_id_from_response(response_auth)
         methods_delete_couriers.delete_courier(id)
 
+@pytest.fixture
+def create_courier_for_auth(methods_generation_couriers, methods_create_courier, methods_login_courier, methods_delete_couriers):
+        payload = methods_generation_couriers.generate_courier_data()
+        methods_create_courier.create_new_courier(payload)
+        del payload["firstName"]
+        response_auth = methods_login_courier.auth_courier(payload)
+        id = methods_login_courier.get_id_from_response(response_auth)
+        
+        yield payload
+        
+        methods_delete_couriers.delete_courier(id)
+
 
 
